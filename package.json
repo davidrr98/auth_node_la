@@ -1,0 +1,25 @@
+{
+  "name": "auth_node_la",
+  "version": "1.0.0",
+  "description": "Proyecto con Autenticación JWT en Node js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidrr98/auth_node_la.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidrr98/auth_node_la/issues"
+  },
+  "homepage": "https://github.com/davidrr98/auth_node_la#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
