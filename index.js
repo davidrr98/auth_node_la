@@ -27,6 +27,14 @@ app.get('/jwt', auth.validateToken, (req, res) => {
     
 });
 
+app.delete('/authorization', auth.validateToken, (req, res) => {
+    auth.deleteAccessToken(req)
+    res.status(200).json({
+        status: 'logout'
+    });
+
+});
+
 app.post('/authorization', (req, res) => {
 
     console.log(req.body);
