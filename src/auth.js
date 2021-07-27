@@ -13,11 +13,22 @@ const jwt = require('jsonwebtoken');
 const timeToken = 60
 // Implementation ----------------------------------
 
+
+/**
+ *Crea el access token
+ *
+ * @param {*} user
+ * @return {*} 
+ */
 function generateAccessToken(user) {
-    console.log(user);
     return jwt.sign(user,process.env.SECRET_JWT, {expiresIn: timeToken+'m'});
 }
 
+/**
+ *Agrega el token a la lista de bloqueo
+ *
+ * @param {*} req
+ */
 function deleteAccessToken(req) {
     const accessToken = req.headers['authorization'];
     if(!accessToken) res.status(401).json({
@@ -27,6 +38,13 @@ function deleteAccessToken(req) {
     block_list.add2BlockList(accessToken,timeToken*60);
 }
 
+/**
+ *valida si el token es valido
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 async function validateToken(req, res, next){
     const accessToken = req.headers['authorization'];
     if(!accessToken) res.status(401).json({
@@ -35,12 +53,10 @@ async function validateToken(req, res, next){
     const bloqueado=await block_list.tokenInBlockList(accessToken);
     
     if(bloqueado){
-        console.log('Bloqueado');
         res.status(401).json({
             mensaje:"Token eliminado"
         });
     } else{
-        console.log('Sin bloquear');
         jwt.verify(accessToken, process.env.SECRET_JWT, (err, user) =>{
             if(err){
                 res.status(401).json({
@@ -54,11 +70,6 @@ async function validateToken(req, res, next){
     
         });
     }
-
-
-    
-
-
 
 
 }
