@@ -11,6 +11,7 @@ require('dotenv').config()
 const block_list= require("./block_list.js")
 const jwt = require('jsonwebtoken');
 const timeToken = 60
+const SECRET_JWT = process.env.SECRET_JWT || "secretejwt"
 // Implementation ----------------------------------
 
 
@@ -21,7 +22,11 @@ const timeToken = 60
  * @return {*} 
  */
 function generateAccessToken(user) {
-    return jwt.sign(user,process.env.SECRET_JWT, {expiresIn: timeToken+'m'});
+    console.log("Entra a generate");
+    console.log(user);
+
+
+    return jwt.sign(user,SECRET_JWT, {expiresIn: timeToken+'m'});
 }
 
 /**
@@ -57,7 +62,7 @@ async function validateToken(req, res, next){
             mensaje:"Token eliminado"
         });
     } else{
-        jwt.verify(accessToken, process.env.SECRET_JWT, (err, user) =>{
+        jwt.verify(accessToken, SECRET_JWT, (err, user) =>{
             if(err){
                 res.status(401).json({
                     mensaje:"Token incorrecto"

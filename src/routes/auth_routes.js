@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const auth= require("../auth");
+const auth = require("../auth");
+const { userValidate } = require('../models/user')
 
-router.use(express.urlencoded({extended: false}));
+router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 router.delete('/', auth.validateToken, (req, res) => {
@@ -14,15 +15,24 @@ router.delete('/', auth.validateToken, (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
-    const { username, password} = req.body;
-    //consultar y validar
-    const user = {username: username};
-    const accessToken = auth.generateAccessToken(user);
-    res.header('authorization', accessToken).json({
-        messaje: 'Usuario autenticado',
-        token: accessToken
-    });
+router.post('/', async (req, res) => {
+    const { username, password } = req.body;
+
+    const id =await userValidate(username, password);
+    if (id != null) {
+        const user = { id: id,
+                    username: username };
+        const accessToken = auth.generateAccessToken(user);
+        res.header('authorization', accessToken).json({
+            messaje: 'Usuario autenticado',
+            token: accessToken
+        });
+    }else{
+        res.json({
+            mensaje: 'Credenciales incorrectas'
+        });
+    }
+
 });
 
 module.exports = router;
