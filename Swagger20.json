@@ -1,0 +1,386 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "prueba node",
+    "contact": {}
+  },
+  "host": "example.com",
+  "basePath": "/",
+  "securityDefinitions": {},
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/health_check": {
+      "get": {
+        "summary": "health check",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "healthcheck",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "create user",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "createuser",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/createuserrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/authorization": {
+      "post": {
+        "summary": "create token",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "createtoken",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/createtokenrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "delete token",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "deletetoken",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/users/14/active": {
+      "patch": {
+        "summary": "active user",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "activeuser",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/users/14": {
+      "get": {
+        "summary": "get user by id",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "getuserbyid",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "put": {
+        "summary": "edit user by id",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "edituserbyid",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/edituserbyidrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "delete user by id",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "deleteuserbyid",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/messages/send": {
+      "post": {
+        "summary": "send message",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "sendmessage",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/sendmessagerequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "definitions": {
+    "createuserrequest": {
+      "title": "createuserrequest",
+      "example": {
+        "username": "newuser",
+        "password": "password"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "createtokenrequest": {
+      "title": "createtokenrequest",
+      "example": {
+        "username": "newuser",
+        "password": "password"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "edituserbyidrequest": {
+      "title": "edituserbyidrequest",
+      "example": {
+        "username": "daviddaaad",
+        "password": "passworddd",
+        "active": true
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "active"
+      ]
+    },
+    "sendmessagerequest": {
+      "title": "sendmessagerequest",
+      "example": {
+        "message": "Hola, soy new user"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}
