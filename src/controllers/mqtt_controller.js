@@ -1,5 +1,8 @@
 var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://test.mosquitto.org')
+
+require('dotenv').config()
+const MQTT_HOST = process.env.MQTT_HOST || 'mqtt://mqtt.lyaelectronic.com:4010';
+var client  = mqtt.connect(MQTT_HOST)
 var clientConnect = false;
 
 client.on('connect',  clienteOn);
@@ -15,16 +18,7 @@ function clienteOff(){
   clientConnect=false;
   console.log("Se desctonecto mqtt");
 }
-/* function sendMessage(msg){
-  console.log("Se va a enviar");
-    client.on('connect', function () {
-        client.subscribe('david', function (err) {
-          if (!err) {
-             client.publish('david', msg)
-          }
-        })
-      })   
-} */
+
 
 
 const sendMessage = (req, res) => {
@@ -37,7 +31,6 @@ const sendMessage = (req, res) => {
       return;
     }
     const id = req.user.id || 0;
-    console.log("Se va a enviar");
     client.publish('david', `{"message":"${message}","user":${id}}`);
     res.json({
       status:"Enviado de forma correcta"

@@ -10,7 +10,7 @@ require('dotenv').config()
 
 const block_list= require("./block_list.js")
 const jwt = require('jsonwebtoken');
-const timeToken = 60
+const timeToken = process.env.TIME_JWT || 60;
 const SECRET_JWT = process.env.SECRET_JWT || "secretejwt"
 // Implementation ----------------------------------
 

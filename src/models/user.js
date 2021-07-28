@@ -1,11 +1,14 @@
 const { Pool } = require('pg');
 
+require('dotenv').config()
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+
 const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: '',
-    database: 'prueba_node',
-    port: '5432'
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASS || '',
+    database: process.env.DB_NAME || 'prueba_node',
+    port: process.env.DB_PORT || '5432'
 });
 
 
@@ -16,7 +19,6 @@ const getUserById = async (req, res) => {
     });
 
     const idNum= parseInt(id)
-    console.log("IdNum ", idNum);
 
     if(isNaN(idNum)) res.json({
         mensaje: 'El id debe ser un numero'
@@ -44,7 +46,6 @@ const deleteUserById = async (req, res) => {
         mensaje: 'El campo id es obligatorio'
     });
     const idNum= parseInt(id)
-    console.log("IdNum ", idNum);
     if(isNaN(idNum)) res.json({
         mensaje: 'El id debe ser un numero'
     });
@@ -69,7 +70,6 @@ const updateUserById = async (req, res )=>{
         mensaje: 'El campo id es obligatorio'
     });
     const idNum= parseInt(id)
-    console.log("IdNum ", idNum);
     if(isNaN(idNum)) res.json({
         mensaje: 'El id debe ser un numero'
     });
@@ -121,7 +121,6 @@ const activeById = async (req, res) => {
         mensaje: 'El campo id es obligatorio'
     });
     const idNum= parseInt(id)
-    console.log("IdNum ", idNum);
     if(isNaN(idNum)) res.json({
         mensaje: 'El id debe ser un numero'
     });
@@ -162,7 +161,6 @@ const newUser = async (req, res) => {
     
 
     const response = await pool.query('SELECT username FROM users WHERE username= $1', [username]);
-    console.log(response.rowCount);
     if (response.rowCount > 0) {
         res.json({
             mensaje: 'El username ya existe'
