@@ -4,11 +4,9 @@ const router = express.Router();
 router.use(express.urlencoded({extended: false}));
 router.use(express.json());
 
-const { getUsers, getUserById, deleteUserById, updateUserById , newUser, activeById } = require('../models/user')
+const { getUserById, deleteUserById, updateUserById , newUser, activeById } = require('../models/user')
 
-const auth= require("../auth")
-
-router.get('/', auth.validateToken, getUsers);
+const auth= require("../auth/auth")
 
 router.get('/:id', auth.validateToken, getUserById);
 

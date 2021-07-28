@@ -9,12 +9,6 @@ const pool = new Pool({
 });
 
 
-const getUsers = async (req, res) => {
-    const response = await pool.query('SELECT id, username, active FROM users')
-    console.log(response.rows);
-    res.send(response.rows);
-}
-
 const getUserById = async (req, res) => {
     const id =req.params.id;
     if(!id) res.json({
@@ -80,6 +74,25 @@ const updateUserById = async (req, res )=>{
         mensaje: 'El id debe ser un numero'
     });
     const { username, password, active } = req.body;
+    if(username==null || username=="" ){
+        res.json({
+            mensaje: 'El campo username es obligatorio'
+        });
+        return;
+    }
+
+    if(password==null || password=="" ){
+        res.json({
+            mensaje: 'El campo password es obligatorio'
+        });
+        return;
+    }
+    if(active == null || typeof active != "boolean"){
+        res.json({
+            mensaje: 'El campo active es obligatorio'
+        });
+        return;   
+    }
 
     try {
         
@@ -133,7 +146,20 @@ const activeById = async (req, res) => {
 
 const newUser = async (req, res) => {
     const { username, password } = req.body;
-    console.log(username);
+    if(username==null || username=="" ){
+        res.json({
+            mensaje: 'El campo username es obligatorio'
+        });
+        return;
+    }
+
+    if(password==null || password=="" ){
+        res.json({
+            mensaje: 'El campo password es obligatorio'
+        });
+        return;
+    }
+    
 
     const response = await pool.query('SELECT username FROM users WHERE username= $1', [username]);
     console.log(response.rowCount);
@@ -155,16 +181,12 @@ const newUser = async (req, res) => {
             res.json({
                 error: error.detail
             })
-
         }
-
     }
-
 }
 
 async function userValidate(username, password){
     const response = await pool.query('SELECT id FROM users WHERE username= $1 AND password= $2',[username, password])
-    console.log(response);
     if(response.rowCount==1){
         return response.rows[0].id;
     }else{
@@ -175,7 +197,6 @@ async function userValidate(username, password){
 
 module.exports =
 {
-    getUsers,
     getUserById,
     deleteUserById,
     updateUserById,

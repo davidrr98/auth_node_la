@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require("../auth");
+const auth = require("../auth/auth");
 const { userValidate } = require('../models/user')
 
 router.use(express.urlencoded({ extended: false }));
@@ -18,6 +18,20 @@ router.delete('/', auth.validateToken, (req, res) => {
 router.post('/', async (req, res) => {
     const { username, password } = req.body;
 
+    if(username==null || username=="" ){
+        res.json({
+            mensaje: 'El campo username es obligatorio'
+        });
+        return;
+    }
+
+    if(password==null || password=="" ){
+        res.json({
+            mensaje: 'El campo password es obligatorio'
+        });
+        return;
+    }
+    
     const id =await userValidate(username, password);
     if (id != null) {
         const user = { id: id,

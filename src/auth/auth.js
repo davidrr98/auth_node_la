@@ -22,10 +22,6 @@ const SECRET_JWT = process.env.SECRET_JWT || "secretejwt"
  * @return {*} 
  */
 function generateAccessToken(user) {
-    console.log("Entra a generate");
-    console.log(user);
-
-
     return jwt.sign(user,SECRET_JWT, {expiresIn: timeToken+'m'});
 }
 
@@ -69,10 +65,8 @@ async function validateToken(req, res, next){
                 });
             }else{
                 req.user= user;
-                
                 next();
             }
-    
         });
     }
 
